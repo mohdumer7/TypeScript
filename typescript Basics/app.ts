@@ -88,13 +88,14 @@ console.log(combine2("mohammed", "umer", "as-text"));
 //prints:mohammedumer
 
 //---------------------------------------------------------------------
-//ALISASES
+//ALISASES TYPES
 //Give a different name to the types either in UNION or even if singular
 type Combinable = number | string;
+type ConversionDESC = "as-text" | "as-number";
 function combine3(
   input1: Combinable,
   input2: Combinable,
-  returnValue: "as-text" | "as-number"
+  returnValue: ConversionDESC
 ) {
   //This cannot be done even if its correct..EXCEPTION
   // const result = input1 + input2;
@@ -120,3 +121,29 @@ console.log(combineAges3);
 //XXXXXXXXXXX  XXXXXXXXXXXXXXXXXX
 console.log(combine3("mohammed", "umer", "as-text"));
 //prints:mohammedumer
+//---------------------------------------------------------------------
+//RETURN TYPES
+//function name():return_type
+function add(n1: number, n2: number): number {
+  return n1 + n2;
+}
+function printresult(num: number): void {
+  console.log(num);
+}
+
+//---------------------------------------------------------------------
+// FUNCTIONS as types
+//const data:FUNCTION
+// ALSO the function type can be given as ()=> return_type
+function add1(n1: number, n2: number): number {
+  return n1 + n2;
+}
+//GENERIC FUNCTION
+let temp: Function;
+//SPECIFIC FUNCTION
+let temp2: (a: number, b: number) => number;
+
+temp = add1;
+console.log(temp(3, 4));
+//prints:7
+//---------------------------------------------------------------------
