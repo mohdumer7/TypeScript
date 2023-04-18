@@ -3,7 +3,7 @@
 //we cannot add default values to interfaces XXXXname:string = "umer"XXXX
 //THis is basically for building a blueprint like structure to use it later
 interface Person {
-  name: string;
+  readonly name: string;
   age: number;
 
   greet(phrase: string): void;
