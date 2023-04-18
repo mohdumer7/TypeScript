@@ -177,3 +177,40 @@ class ITDepartment1 extends Department1 {
 const accounting1 = new ITDepartment("DCT", 8);
 
 //----------------------------------------------------------------------------
+
+//////////////////////////////////////////////////////////////////////////////////////
+//----------------------------------------------------------------------------
+//////////////////////////////////////////////////////////////////////////////////////
+
+//SingleTon
+//Ensuring only one certain instance of the class
+//which means ITDepartment2 can only be instantiated or created ONCE..!!
+//NO MULTIPLE OBJECTS
+class ITDepartment2 extends Department1 {
+  //----------------------------------------------------------------------------
+  //this instance variable os the type class itself
+  private static instance: ITDepartment2;
+
+  //This makes sure no one can instantiate the class
+  //by ading private to the constructor
+  private constructor(public name: string, public yearsOld: number) {
+    super(name);
+  }
+  static getInstance() {
+    //if the instance already exists return dont create a new instance
+    if (this.instance) {
+      return this.instance;
+    }
+    this.instance = new ITDepartment2("ATN", 6);
+  }
+}
+
+//Beacuse we dont have access to the constructor as its private we made the satic class
+//and we use that to make sure we only create one instance
+const dept2 = ITDepartment2.getInstance();
+const dept3 = ITDepartment2.getInstance();
+console.log(dept2 === dept3);
+// prints:true
+//This is beacuse for the second time i'e dept3 dept2 itself is returned
+//as a previous instatiation
+//----------------------------------------------------------------------------
