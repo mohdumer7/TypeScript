@@ -52,7 +52,71 @@ const combineAges = combine(10, 12);
 console.log(combineAges);
 //prints:22
 //XXXXXXXXXXX  XXXXXXXXXXXXXXXXXX
-console.log("mohammed", "umer");
+console.log(combine("mohammed", "umer"));
 //prints:mohammedumer
 
 //---------------------------------------------------------------------
+//THIS is LITERAL type, Literally the same string (returnValue)
+function combine2(
+  input1: number | string,
+  input2: number | string,
+  returnValue: "as-text" | "as-number"
+) {
+  //This cannot be done even if its correct..EXCEPTION
+  // const result = input1 + input2;
+
+  let result: any;
+  if (typeof input1 === "number" && typeof input2 === "number") {
+    //EXPLICITLY TELLING ONLY NUMBERS
+    result = input1 + input2;
+  } else {
+    //EXPLICITLY TELLING ONLY STRINGS
+    result = input1.toString() + input2.toString();
+  }
+  if (returnValue === "as-text") {
+    return result.toString();
+  } else {
+    return +result;
+  }
+}
+
+const combineAges2 = combine2(10, 12, "as-number");
+console.log(combineAges2);
+//prints:22
+//XXXXXXXXXXX  XXXXXXXXXXXXXXXXXX
+console.log(combine2("mohammed", "umer", "as-text"));
+//prints:mohammedumer
+
+//---------------------------------------------------------------------
+//ALISASES
+//Give a different name to the types either in UNION or even if singular
+type Combinable = number | string;
+function combine3(
+  input1: Combinable,
+  input2: Combinable,
+  returnValue: "as-text" | "as-number"
+) {
+  //This cannot be done even if its correct..EXCEPTION
+  // const result = input1 + input2;
+
+  let result: any;
+  if (typeof input1 === "number" && typeof input2 === "number") {
+    //EXPLICITLY TELLING ONLY NUMBERS
+    result = input1 + input2;
+  } else {
+    //EXPLICITLY TELLING ONLY STRINGS
+    result = input1.toString() + input2.toString();
+  }
+  if (returnValue === "as-text") {
+    return result.toString();
+  } else {
+    return +result;
+  }
+}
+
+const combineAges3 = combine3(10, 12, "as-number");
+console.log(combineAges3);
+//prints:22
+//XXXXXXXXXXX  XXXXXXXXXXXXXXXXXX
+console.log(combine3("mohammed", "umer", "as-text"));
+//prints:mohammedumer
