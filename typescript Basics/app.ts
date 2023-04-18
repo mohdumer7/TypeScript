@@ -1,9 +1,17 @@
-function add(n1: number, n2: number) {
-  return n1 + n2;
-}
+// object types
+// typescript create its own key value type pair objects
+const person: { name: string; age: number; hobbies: string[] } = {
+  name: "umer",
+  age: 30,
+  hobbies: ["sports"],
+};
 
-const number1 = 5;
-const number2 = 2.8;
+//tuple array-push is an exception here in tuple
+const person_tuple: [string, string] = ["SDE", "25LPA"];
+//XXXXXX THIS SHOULDNT WORK ACTUALLY BUT IS AN EXCEPTION XXXXXX
+person_tuple.push("admin");
+//XXXXXXXXXXXXXXXXXXXXXXXX
 
-const result = add(number1, number2);
-console.log(result, "typescript");
+//ENUMS
+
+console.log(person);
