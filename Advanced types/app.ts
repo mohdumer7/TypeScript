@@ -32,6 +32,13 @@ type universal = Combinable & Numeric;
 //TYPE GAURDS
 //helps in determining the type selected in runtime env to make sure some cases dont fail
 
+//Function Overloads
+//MUltiple Possible ways of calling a function
+//now the function returns value based on the type of values that is passed
+//function is overloaded
+function add(a: string, b: string): string;
+function add(a: number, b: number): number;
+function add(a: number, b: string): string;
 function add(a: Combinable, b: Combinable) {
   //type gaurd using typeof
   if (typeof a === "string" || typeof b === "string") {
@@ -130,5 +137,31 @@ const paragraph = document.getElementById("message")!;
 const ele = <HTMLElement>document.getElementById("message")!;
 //same as above
 const ele1 = document.getElementById("message")! as HTMLElement;
+
+//-------------------------------------------------------------------------------------
+
+//INDEX PROPERTY
+//Making Flexible and Generic Containers
+interface ErrorConatainer {
+  //say this is a generic error container then i dont know what kind of errors
+  //each of the functions using may have
+  //to build a generic container
+
+  //i dont know what kind of an object this is or how many variables it may have
+  //but anyone accesing this must be of
+  //string and the value must also be a string
+  //{email:"jaknad@kjhsakj.com"}
+  //both of these are string (key:value)
+  [key: string]: string;
+}
+
+const errorBag: ErrorConatainer = {
+  email: "ksdasn@askjs.com",
+};
+
+//this cannot be valid as the index is set to string only
+// const errorBag: ErrorConatainer = {
+//   email: 1,
+// };
 
 //-------------------------------------------------------------------------------------
