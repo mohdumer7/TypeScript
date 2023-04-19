@@ -86,7 +86,10 @@ function Log3(
   console.log(descriptor);
 }
 
+//----------------------------------------------------------------------------------------
+
 // returning a class in the decorator
+//whenever we return from decorator it will always replace the old function
 function WithTemplate1(template: string, hookId: string) {
   console.log("Templetising");
   return function (Originalconstructor: any) {
@@ -119,3 +122,34 @@ class Person3 {
 }
 
 //----------------------------------------------------------------------------------------
+//AutoBind Decorator
+
+function AutoBind(
+  target: any,
+  methodName: string,
+  descriptor: PropertyDescriptor
+) {
+  const originalMethod = descriptor.value;
+  const adjustedDescriptor: PropertyDescriptor = {
+    configurable: true,
+    enumerable: false,
+    get() {
+      //this is always object in getter
+      const boundfn = originalMethod.bind(this);
+      return boundfn;
+    },
+  };
+  return adjustedDescriptor;
+}
+
+class Printer {
+  message = "This Works..!";
+
+  showmessage() {
+    console.log(this.message);
+  }
+}
+const p = new Printer();
+
+const button = document.querySelector("button")!;
+button.addEventListener("click", p.showmessage);
