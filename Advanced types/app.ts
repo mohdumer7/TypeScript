@@ -86,3 +86,49 @@ function useVehicle(vehicle: Vehicle) {
   }
 }
 //-------------------------------------------------------------------------------------
+//Discriminated Unions
+//adding custom property to discriminate it between different classes or type
+interface Bird {
+  //this is just a string value of type
+  type: "bird";
+  flyingSpeed: number;
+}
+
+interface Horse {
+  type: "horse";
+  runningSpeed: number;
+}
+
+type Animal = Bird | Horse;
+
+function moveAnimal(animal: Animal) {
+  if ("flyingSpeed" in animal) {
+    console.log("Moving with Speed" + animal.flyingSpeed);
+  }
+  let speed;
+  switch (animal.type) {
+    case "horse":
+      speed = animal.runningSpeed;
+      break;
+    case "bird":
+      speed = animal.flyingSpeed;
+      break;
+  }
+}
+
+moveAnimal({ type: "bird", flyingSpeed: 10 });
+
+//-------------------------------------------------------------------------------------
+
+//TYPE CASTING
+//change or force the type to be something
+//typescript cannot dive inot DOM and find out if the type is valid
+//the exclamation mark in the end makes sure the type is safe you can proceed
+const paragraph = document.getElementById("message")!;
+
+//type casting for HTML elements
+const ele = <HTMLElement>document.getElementById("message")!;
+//same as above
+const ele1 = document.getElementById("message")! as HTMLElement;
+
+//-------------------------------------------------------------------------------------
