@@ -4,8 +4,8 @@
 //THis is basically for building a blueprint like structure to use it later
 interface Person {
   readonly name: string;
-  age: number;
-
+  age?: number;
+  // age? means its an optional parameter can or cannot have
   greet(phrase: string): void;
 }
 
