@@ -86,6 +86,24 @@ function Log3(
   console.log(descriptor);
 }
 
+// returning a class in the decorator
+function WithTemplate1(template: string, hookId: string) {
+  console.log("Templetising");
+  return function (Originalconstructor: any) {
+    const hookEl = document.querySelector(hookId);
+    const p = new Originalconstructor();
+    if (hookEl) {
+      hookEl.innerHTML = template;
+      hookEl.querySelector("h1")!.textContent = p.name;
+    }
+    return class extends Originalconstructor {
+      constructor() {
+        super();
+      }
+    };
+  };
+}
+
 class Person3 {
   @Log
   name1 = "umer";
