@@ -145,6 +145,7 @@ function AutoBind(
 class Printer {
   message = "This Works..!";
 
+  @AutoBind
   showmessage() {
     console.log(this.message);
   }
@@ -152,4 +153,75 @@ class Printer {
 const p = new Printer();
 
 const button = document.querySelector("button")!;
-button.addEventListener("click", p.showmessage);
+// button.addEventListener("click", p.showmessage);
+
+//----------------------------------------------------------------------------------------
+
+// Decorators for Validation
+
+interface ValidatorConfig {
+  [property: string]: {
+    [validatableProp: string]: string[];
+  };
+}
+
+const registeredValiators: ValidatorConfig = {};
+
+function Required(target: any, propName: string) {
+  registeredValiators[target.constructor.name] = {
+    ...registeredValiators[target.constructor.name],
+    [propName]: ["required"],
+  };
+}
+
+function PositiveNumber(target: any, propName: string) {
+  registeredValiators[target.constructor.name] = {
+    ...registeredValiators[target.constructor.name],
+    [propName]: ["positive"],
+  };
+}
+
+function validate(obj: any) {
+  const objValidatorConfig = registeredValiators[obj.constructor.name];
+  console.log(objValidatorConfig);
+  if (!objValidatorConfig) {
+    return true;
+  }
+  for (const prop in objValidatorConfig) {
+    for (const validator in objValidatorConfig[prop]) {
+      switch (validator) {
+        case "required":
+          return !!obj[prop];
+        case "positive":
+          return obj[prop] > 0;
+      }
+    }
+  }
+  return true;
+}
+
+class Course {
+  @Required
+  title: string;
+  @PositiveNumber
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+}
+
+const courseForm = document.getElementById("course")!;
+courseForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const titleEl = document.getElementById("title") as HTMLInputElement;
+  const priceEl = document.getElementById("price") as HTMLInputElement;
+  const title = titleEl.value;
+  const price = +priceEl.value;
+  const createdCourse = new Course(title, price);
+  if (!validate(createdCourse)) {
+    throw new Error("Invalid Details");
+  }
+  console.log(createdCourse);
+});
