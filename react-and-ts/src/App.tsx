@@ -21,7 +21,6 @@ const App: React.FC = () => {
     <>
       <NewTodo addTodo={addTodo} />
       <TodoList items={todos} removeTodo={removeTodo} />
-      <div>Hello..!!</div>;
     </>
   );
 };
